@@ -1,0 +1,28 @@
+apiVersion: mysql.persistentsys/v1alpha1
+kind: MySQL
+metadata:
+  name: mysql
+spec:
+  # Add fields here
+  size: 1
+  
+  # Root user password
+  rootpwd: password
+
+  # New Database name
+  database: test-db
+  # Database additional user details (base64 encoded)
+  username: db-user 
+  password: db-user 
+
+  # Image name with version
+  image: "mysql:5.6"
+
+  # Database storage Path
+  dataStoragePath: "/mnt/data" 
+
+  # Database storage Size (Ex. 1Gi, 100Mi)
+  dataStorageSize: "1Gi"
+
+  # Port number exposed for Database service 
+  port: 30685

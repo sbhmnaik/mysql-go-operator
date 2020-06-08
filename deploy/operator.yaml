@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-go-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mysql-go-operator
+  template:
+    metadata:
+      labels:
+        name: mysql-go-operator
+    spec:
+      serviceAccountName: mysql-go-operator
+      containers:
+        - name: mysql-go-operator
+          # Replace this with the built image name
+          image: quay.io/sbhmnaik/mysql-gooperator:v0.0.1
+          command:
+          - mysql-go-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "mysql-go-operator"
